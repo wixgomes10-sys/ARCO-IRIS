@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCO-IRIS | Acesso ao Sistema</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --gold: #C5A028;
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%);
+            --bg-body: #0f0f0f;
+            --surface: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+            --glass: rgba(255,255,255,0.03);
+            --border: rgba(255,255,255,0.08);
+        }
+
+        * { box-sizing: border-box; }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+            background-color: var(--bg-body);
+            color: var(--text-main);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 30px;
+            background-image: radial-gradient(circle at 50% 0%, #2a0a0a 0%, #0f0f0f 70%);
+        }
+
+        .login-wrapper {
+            width: 100%;
+            max-width: 420px;
+        }
+
+        .login-card {
+            background: var(--surface);
+            padding: 32px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .logo { text-align: center; margin-bottom: 18px; }
+        .logo h1 { margin: 8px 0 0; letter-spacing: 2px; font-size: 1.6rem; }
+        .logo .material-icons { font-size: 44px; color: var(--gold); }
+
+        form { display: flex; flex-direction: column; gap: 12px; }
+
+        label { font-size: 0.85rem; color: var(--text-dim); }
+        input[type="text"], input[type="password"] {
+            width: 100%;
+            padding: 12px 14px;
+            border-radius: 10px;
+            border: 1px solid var(--border);
+            background: rgba(255,255,255,0.02);
+            color: var(--text-main);
+            font-size: 1rem;
+        }
+
+        input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 4px rgba(197,160,40,0.06); }
+
+        .btn-primary {
+            margin-top: 8px;
+            padding: 12px 14px;
+            background: var(--gold-gradient);
+            border: none;
+            border-radius: 10px;
+            color: #000;
+            font-weight: 700;
+            cursor: pointer;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-primary[disabled] { opacity: 0.7; cursor: default; }
+
+        .info { margin-top: 14px; font-size: 0.85rem; color: var(--text-dim); text-align: center; }
+
+        @media (max-width: 600px) {
+            .login-wrapper { max-width: 360px; }
+            .logo h1 { font-size: 1.2rem; }
+        }
+    </style>
+</head>
+<body>
+
+<div class="login-wrapper">
+    <div class="login-card">
+        <div class="logo">
+            <span class="material-icons">sports_soccer</span>
+            <h1>ARCO-<span style="color: var(--gold)">IRIS</span></h1>
+        </div>
+
+        <form id="loginForm">
+            <label for="userInput">Usuário</label>
+            <input type="text" id="userInput" placeholder="Usuário" required>
+
+            <label for="passInput">Senha</label>
+            <input type="password" id="passInput" placeholder="Senha" required>
+
+            <button type="submit" class="btn-primary">Entrar</button>
+        </form>
+
+        <div class="info">
+            <strong style="color: var(--gold)">Credenciais Demo:</strong><br>
+            admin / admin — administrador<br>
+            func / 123 — funcionário
+        </div>
+    </div>
+</div>
+
+<script>
+    // Inicializa sistema SÓ na primeira vez
+    function inicializarSistema() {
+        if (!localStorage.getItem("usuarios_arcoiris")) {
+            const usuariosPadrao = [
+                {user: "admin", pass: "admin", nivel: "admin", nome: "Administrador"},
+                {user: "func", pass: "123", nivel: "funcionario", nome: "Funcionário"}
+            ];
+            localStorage.setItem("usuarios_arcoiris", JSON.stringify(usuariosPadrao));
+        }
+    }
+
+    inicializarSistema();
+
+    document.getElementById('loginForm').onsubmit = function(e) {
+        e.preventDefault();
+        
+        const userVal = document.getElementById('userInput').value.trim();
+        const passVal = document.getElementById('passInput').value.trim();
+        const btn = this.querySelector('button');
+        
+        if (!userVal || !passVal) {
+            alert("Preencha todos os campos!");
+            return;
+        }
+        
+        const usuarios = JSON.parse(localStorage.getItem("usuarios_arcoiris")) || [];
+        const usuarioEncontrado = usuarios.find(u => u.user === userVal && u.pass === passVal);
+
+        if (usuarioEncontrado) {
+            btn.disabled = true;
+            btn.textContent = '⏳ Entrando...';
+            sessionStorage.setItem("sessao_usuario", JSON.stringify(usuarioEncontrado));
+            setTimeout(() => {
+                if (usuarioEncontrado.nivel === "admin") {
+                    window.location.href = "admin-relatorios.html";
+                } else {
+                    window.location.href = "index.html";
+                }
+            }, 500);
+        } else {
+            alert("❌ Usuário ou senha incorretos!");
+        }
+    };
+</script>
+</body>
+</html>

@@ -1,0 +1,497 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ARCO-IRIS | Relatórios Estratégicos</title>
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --primary: #8B0000;
+            --gold: #C5A028;
+            --gold-gradient: linear-gradient(135deg, #D4AF37 0%, #C5A028 100%);
+            --bg-body: #0f0f0f;
+            --surface: #1e1e1e;
+            --text-main: #e0e0e0;
+            --text-dim: #a0a0a0;
+            --success: #00c853;
+            --warning: #ffd600;
+            --danger: #ff5252;
+            --border: rgba(255, 255, 255, 0.08);
+            --glass: rgba(255, 255, 255, 0.03);
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg-body);
+            background-image: radial-gradient(circle at 50% 0%, #2a0a0a 0%, #0f0f0f 70%);
+            color: var(--text-main);
+            min-height: 100vh;
+        }
+
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 20px 40px;
+            background: rgba(0, 0, 0, 0.5);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .nav-title {
+            font-weight: 700;
+            font-size: 1.3rem;
+            letter-spacing: 2px;
+        }
+
+        .nav-title span { color: var(--gold); }
+
+        .nav-user {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            color: var(--text-dim);
+            font-size: 0.85rem;
+        }
+
+        .nav-user span { color: var(--gold); font-weight: 600; }
+
+        .btn-logout {
+            background: rgba(255, 82, 82, 0.1);
+            border: 1px solid var(--danger);
+            color: var(--danger);
+            padding: 10px 20px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            font-weight: 600;
+            transition: 0.3s;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .btn-logout:hover { background: var(--danger); color: white; }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 30px;
+        }
+
+        header {
+            margin-bottom: 40px;
+            text-align: center;
+        }
+
+        header h1 {
+            font-size: 2rem;
+            margin: 0;
+            letter-spacing: 3px;
+        }
+
+        header p {
+            color: var(--text-dim);
+            margin: 10px 0 0;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+        }
+
+        .filter-bar {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 30px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .filter-bar select {
+            padding: 10px 15px;
+            background: var(--surface);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: var(--text-main);
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+
+        .filter-bar select:focus {
+            outline: none;
+            border-color: var(--gold);
+        }
+
+        .grid-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .stat-card {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            position: relative;
+            overflow: hidden;
+            transition: transform 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+
+        .stat-card:hover { transform: translateY(-5px); border-color: var(--gold); }
+
+        .stat-card::before {
+            content: "";
+            position: absolute;
+            top: 0; right: 0; width: 100px; height: 100px;
+            background: var(--gold-gradient);
+            opacity: 0.05;
+            border-radius: 50%;
+            transform: translate(30%, -30%);
+        }
+
+        .stat-card h3 {
+            margin: 0;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-weight: 600;
+        }
+
+        .stat-card p {
+            margin: 15px 0 0;
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+        }
+
+        .stat-card .icon {
+            position: absolute;
+            bottom: 20px;
+            right: 20px;
+            font-size: 50px;
+            opacity: 0.1;
+            color: var(--gold);
+        }
+
+        .report-box {
+            background: var(--surface);
+            padding: 30px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+
+        .report-box h2 {
+            margin: 0 0 25px;
+            font-size: 1.3rem;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .report-box h2 .material-icons { color: var(--gold); }
+
+        .table-responsive {
+            overflow-x: auto;
+            border-radius: 12px;
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+
+        thead { background: rgba(255, 255, 255, 0.03); }
+
+        th {
+            padding: 18px;
+            font-size: 0.75rem;
+            color: var(--gold);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            text-align: left;
+            border-bottom: 1px solid var(--border);
+            font-weight: 600;
+        }
+
+        td {
+            padding: 18px;
+            border-bottom: 1px solid var(--border);
+            font-size: 0.9rem;
+        }
+
+        tr:last-child td { border-bottom: none; }
+        tr:hover { background: rgba(255, 255, 255, 0.02); }
+
+        .badge {
+            padding: 6px 14px;
+            border-radius: 8px;
+            font-size: 0.7rem;
+            font-weight: 700;
+            text-transform: uppercase;
+            display: inline-block;
+        }
+
+        .badge.pago {
+            background: rgba(0, 200, 83, 0.15);
+            color: var(--success);
+            border: 1px solid var(--success);
+        }
+
+        .badge.pendente {
+            background: rgba(255, 214, 0, 0.15);
+            color: var(--warning);
+            border: 1px solid var(--warning);
+        }
+
+        .empty-state {
+            text-align: center;
+            padding: 60px 20px;
+            color: var(--text-dim);
+        }
+
+        .empty-state .material-icons {
+            font-size: 60px;
+            opacity: 0.3;
+            margin-bottom: 15px;
+        }
+
+        @media (max-width: 768px) {
+            nav { flex-direction: column; gap: 15px; padding: 15px; }
+            .filter-bar { flex-direction: column; }
+            .filter-bar select { width: 100%; }
+            .grid-stats { grid-template-columns: 1fr; }
+            table { font-size: 0.8rem; }
+            td, th { padding: 12px; }
+        }
+
+                .nav-link {
+            color: var(--gold);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            transition: 0.3s;
+        }
+
+        .nav-link:hover { color: #fff; }
+    </style>
+</head>
+<body>
+
+<nav>
+    <div class="nav-title">ARCO-<span>IRIS</span> RELATÓRIOS</div>
+    <div style="display: flex; gap: 25px; align-items: center;">
+        <a href="index.html" style="color: var(--gold); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; transition: 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--gold)'">
+            <span class="material-icons">arrow_back</span> Voltar para Reservas
+        </a>
+        <div class="nav-user" style="border-left: 1px solid var(--border); padding-left: 25px;">
+            <span class="material-icons">account_circle</span>
+            <span id="nomeUsuario"></span>
+        </div>
+        <button class="btn-logout" onclick="logout()"><span class="material-icons" style="font-size:18px">logout</span> SAIR</button>
+    </div>
+</nav>
+
+<div class="container">
+    <header>
+        <h1>Relatórios Estratégicos</h1>
+        <p>Análise de Receitas e Reservas</p>
+    </header>
+
+    <div class="filter-bar">
+        <select id="filtroEsporte" onchange="filtrarRelatorio()">
+            <option value="">Todos os Esportes</option>
+            <option value="Futsal">Futsal</option>
+            <option value="Vôlei">Vôlei</option>
+        </select>
+        <select id="filtroStatus" onchange="filtrarRelatorio()">
+            <option value="">Todos os Status</option>
+            <option value="Pago">Pago</option>
+            <option value="Pendente">Pendente</option>
+        </select>
+    </div>
+        <button onclick="mostrarCadastroFuncionario()" style="padding: 10px 15px; background: var(--gold-gradient); color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 30px;">+ Cadastrar Funcionário</button>
+
+    <div class="grid-stats">
+        <div class="stat-card">
+            <h3>Receita Confirmada (Pago)</h3>
+            <p id="totalGeral">R$ 0,00</p>
+            <span class="material-icons icon">local_atm</span>
+        </div>
+        <div class="stat-card">
+            <h3>Pendências de Caixa</h3>
+            <p id="totalFutsal">R$ 0,00</p>
+            <span class="material-icons icon">sports_soccer</span>
+        </div>
+        <div class="stat-card">
+            <h3>Total Geral</h3>
+            <p id="totalVolei">R$ 0,00</p>
+            <span class="material-icons icon">sports_volleyball</span>
+        </div>
+    </div>
+
+    <div class="report-box">
+        <h2><span class="material-icons">table_chart</span> Detalhamento de Reservas</h2>
+        <div id="cadastroFuncionarioModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000;">
+            <div style="background: var(--surface); padding: 40px; border-radius: 16px; border: 1px solid var(--border); width: 90%; max-width: 400px;">
+                <h3 style="margin: 0 0 20px; color: var(--gold); font-size: 1.3rem;">Cadastrar Novo Funcionário</h3>
+                <form id="formCadastroFunc" style="display: flex; flex-direction: column; gap: 15px;">
+                    <input type="text" id="nomeFunc" placeholder="Nome Completo" style="padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 14px;" required>
+                    <input type="text" id="userFunc" placeholder="Usuário de Acesso" style="padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 14px;" required>
+                    <input type="password" id="passFunc" placeholder="Senha" style="padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 14px;" required>
+                    <div style="display: flex; gap: 10px;">
+                        <button type="submit" style="flex: 1; padding: 12px; background: var(--gold-gradient); color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; text-transform: uppercase;">Cadastrar</button>
+                        <button type="button" onclick="fecharCadastroFuncionario()" style="flex: 1; padding: 12px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 600; text-transform: uppercase;">Cancelar</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+
+        <div class="table-responsive">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Responsável</th>
+                        <th>Modalidade</th>
+                        <th>Data</th>
+                        <th>Horário</th>
+                        <th>Valor</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="corpoRelatorio"></tbody>
+            </table>
+        </div>
+        <div id="emptyState" class="empty-state" style="display: none;">
+            <span class="material-icons">inbox</span>
+            <p>Nenhuma reserva encontrada</p>
+        </div>
+    </div>
+</div>
+
+<script>
+    // PROTEÇÃO DE ACESSO ADMIN
+    const sessao = JSON.parse(sessionStorage.getItem("sessao_usuario"));
+
+    if (!sessao || sessao.nivel !== "admin") {
+        alert("Acesso restrito ao Administrador!");
+        window.location.href = "login.html";
+    }
+
+    document.getElementById("nomeUsuario").textContent = sessao.nome;
+
+    function logout() {
+        sessionStorage.removeItem("sessao_usuario");
+        window.location.href = "login.html";
+    }
+
+    let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
+    const format = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
+    const formatDate = (ds) => { const [y, m, d] = ds.split('-'); return `${d}/${m}/${y}`; };
+
+    // FUNÇÕES DE CADASTRO DE FUNCIONÁRIO
+    function mostrarCadastroFuncionario() {
+        document.getElementById("cadastroFuncionarioModal").style.display = "flex";
+    }
+
+    function fecharCadastroFuncionario() {
+        document.getElementById("cadastroFuncionarioModal").style.display = "none";
+        document.getElementById("formCadastroFunc").reset();
+    }
+
+    document.getElementById("formCadastroFunc").onsubmit = (e) => {
+        e.preventDefault();
+        const nome = document.getElementById("nomeFunc").value.trim();
+        const user = document.getElementById("userFunc").value.trim();
+        const pass = document.getElementById("passFunc").value.trim();
+
+        if (!nome || nome.length < 3) return alert("Nome deve ter pelo menos 3 caracteres!");
+        if (!user || user.length < 3) return alert("Usuário deve ter pelo menos 3 caracteres!");
+        if (!pass || pass.length < 3) return alert("Senha deve ter pelo menos 3 caracteres!");
+
+        let usuarios = JSON.parse(localStorage.getItem("usuarios_arcoiris")) || [];
+        
+        if (usuarios.find(u => u.user === user)) {
+            alert("Usuário já existe! Escolha outro.");
+            return;
+        }
+
+        usuarios.push({
+            nome: nome,
+            user: user,
+            pass: pass,
+            nivel: "funcionario"
+        });
+
+        localStorage.setItem("usuarios_arcoiris", JSON.stringify(usuarios));
+        alert("✅ Funcionário cadastrado com sucesso!");
+        fecharCadastroFuncionario();
+    };
+
+    function filtrarRelatorio() {
+        const esporte = document.getElementById("filtroEsporte").value;
+        const status = document.getElementById("filtroStatus").value;
+
+        let filtrados = reservas;
+        if (esporte) filtrados = filtrados.filter(r => r.esporte === esporte);
+        if (status) filtrados = filtrados.filter(r => r.status === status);
+
+        renderizarRelatorio(filtrados);
+    }
+
+    function renderizarRelatorio(dados) {
+        const lista = document.getElementById("corpoRelatorio");
+        const empty = document.getElementById("emptyState");
+        lista.innerHTML = "";
+
+        let tPago = 0, tPendente = 0, tGeral = 0;
+
+        if (dados.length === 0) {
+            empty.style.display = "block";
+            document.getElementById("totalGeral").textContent = format(0);
+            document.getElementById("totalFutsal").textContent = format(0);
+            document.getElementById("totalVolei").textContent = format(0);
+            return;
+        }
+
+        empty.style.display = "none";
+
+        dados.forEach(r => {
+            if (!r.status) r.status = "Pendente";
+            tGeral += r.valor;
+            if(r.status === 'Pago') tPago += r.valor;
+            else tPendente += r.valor;
+
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td><strong>${r.nome}</strong></td>
+                <td>${r.esporte}</td>
+                <td>${formatDate(r.data)}</td>
+                <td>${r.inicio} - ${r.fim}</td>
+                <td style="font-weight: 600; color: var(--gold);">${format(r.valor)}</td>
+                <td><span class="badge ${r.status.toLowerCase()}">${r.status}</span></td>
+            `;
+            lista.appendChild(row);
+        });
+
+        document.getElementById("totalGeral").textContent = format(tPago);
+        document.getElementById("totalFutsal").textContent = format(tPendente);
+        document.getElementById("totalVolei").textContent = format(tGeral);
+    }
+
+    // Ordenar por data
+    reservas.sort((a, b) => (a.data + a.inicio).localeCompare(b.data + b.inicio));
+    renderizarRelatorio(reservas);
+</script>
+</body>
+</html>
