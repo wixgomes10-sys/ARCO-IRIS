@@ -2,7 +2,13 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5, user-scalable=yes">
+    <meta name="theme-color" content="#0f0f0f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ARCO-IRIS">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="x-ua-compatible" content="IE=edge">
     <title>Arco-Íris | Gestão Profissional de Reservas</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -32,6 +38,8 @@
             background-image: radial-gradient(circle at 50% 0%, #2a0a0a 0%, #0f0f0f 70%);
             color: var(--text-main);
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Navigation Bar Superior */
@@ -138,6 +146,9 @@
             color: #fff;
             font-size: 0.9rem;
             transition: 0.3s;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
 
         input:focus, select:focus {
@@ -145,6 +156,8 @@
             border-color: var(--gold);
             background: rgba(0,0,0,0.4);
         }
+
+        * { -webkit-tap-highlight-color: rgba(197, 160, 40, 0.2); }
 
         .btn-submit {
             margin-top: 30px;
@@ -160,6 +173,10 @@
             transition: 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            min-height: 48px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
 
         .btn-submit:hover { opacity: 0.9; transform: scale(1.02); }
@@ -207,6 +224,14 @@
             border-radius: 8px;
             cursor: pointer;
             transition: 0.3s;
+            min-height: 44px;
+            min-width: 44px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
 
         .btn-delete:hover { background: var(--danger); color: #fff; }
@@ -219,6 +244,11 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.8rem;
+            min-height: 44px;
+            min-width: 44px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
 
         @media (max-width: 900px) {
@@ -229,15 +259,69 @@
             nav.top-bar { padding: 10px 15px; }
         }
 
+        @media (max-width: 768px) {
+            .container { grid-template-columns: 1fr; padding: 0 12px; max-width: 100%; margin: 0 auto 30px; }
+            .box { padding: 25px; border-radius: 16px; }
+            header { padding: 25px 12px; }
+            header h1 { font-size: 1.6rem; letter-spacing: 2px; }
+            .logo-container { padding: 12px 20px; }
+            h2 { font-size: 1.1rem; margin-bottom: 20px; }
+            input, select { padding: 13px 14px; font-size: 16px; }
+            label { font-size: 0.8rem; margin-bottom: 8px; }
+            table { font-size: 0.8rem; }
+            th, td { padding: 14px 10px; }
+            .badge { padding: 5px 12px; font-size: 0.65rem; }
+            div[style*="flex: 1"] { min-height: 70px; }
+            nav.top-bar { flex-direction: column; gap: 12px; text-align: center; padding: 12px; }
+        }
+
         @media (max-width: 600px) {
             .dashboard { grid-template-columns: 1fr; }
-            .box { padding: 20px; border-radius: 12px; }
-            h2 { font-size: 1rem; }
-            table { font-size: 0.8rem; }
-            th, td { padding: 12px; }
-            input, select { padding: 12px; font-size: 16px; }
-            .btn-submit { padding: 14px; }
-            nav.top-bar { flex-direction: column; gap: 10px; text-align: center; }
+            .container { padding: 0 10px; }
+            .box { padding: 20px 16px; border-radius: 12px; margin-bottom: 15px; }
+            header { padding: 20px 10px; }
+            header h1 { font-size: 1.4rem; letter-spacing: 1px; }
+            .logo-container { gap: 8px; padding: 10px 16px; }
+            .logo-container span { font-size: 2rem !important; }
+            header p { font-size: 0.8rem; }
+            h2 { font-size: 1rem; margin-bottom: 16px; }
+            input, select { padding: 12px 12px; font-size: 16px; border-radius: 8px; }
+            label { font-size: 0.75rem; margin-bottom: 6px; }
+            table { font-size: 0.75rem; }
+            th, td { padding: 10px 8px; }
+            .btn-submit { padding: 12px; font-size: 0.95rem; min-height: 44px; }
+            .btn-delete { min-height: 40px; min-width: 40px; }
+            .logout-btn { padding: 10px 12px; font-size: 0.75rem; min-height: 40px; }
+            td { word-break: break-word; }
+            .badge { padding: 4px 10px; font-size: 0.6rem; }
+        }
+
+        @media (max-width: 480px) {
+            body { padding: 0; }
+            .container { padding: 0 8px; }
+            nav.top-bar { padding: 10px 8px; gap: 8px; }
+            header { padding: 16px 8px; }
+            header h1 { font-size: 1.2rem; }
+            .logo-container { padding: 8px 12px; gap: 6px; }
+            .box { padding: 16px 12px; }
+            h2 { font-size: 0.95rem; }
+            input, select { padding: 11px 11px; font-size: 16px; border-radius: 6px; margin-bottom: 2px; }
+            label { font-size: 0.7rem; margin-bottom: 4px; }
+            table { font-size: 0.7rem; }
+            th, td { padding: 8px 6px; }
+            .btn-submit { padding: 11px; font-size: 0.9rem; min-height: 40px; }
+            div[style*="display: flex; gap"] { gap: 8px !important; flex-wrap: wrap; }
+        }
+
+        @supports (padding: 1dvh) {
+            body { min-height: 100dvh; }
+        }
+
+        @supports (padding: 1svh) {
+            @media (max-height: 500px) {
+                .container { padding-top: 10px; }
+                .box { margin-bottom: 10px; padding: 15px; }
+            }
         }
     </style>
 </head>

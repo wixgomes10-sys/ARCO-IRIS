@@ -2,7 +2,13 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5, user-scalable=yes">
+    <meta name="theme-color" content="#0f0f0f">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <meta name="apple-mobile-web-app-title" content="ARCO-IRIS">
+    <meta name="format-detection" content="telephone=no">
+    <meta name="x-ua-compatible" content="IE=edge">
     <title>ARCO-IRIS | Relatórios Estratégicos</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -29,6 +35,8 @@
             background-image: radial-gradient(circle at 50% 0%, #2a0a0a 0%, #0f0f0f 70%);
             color: var(--text-main);
             min-height: 100vh;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
 
         nav {
@@ -39,6 +47,8 @@
             background: rgba(0, 0, 0, 0.5);
             backdrop-filter: blur(10px);
             border-bottom: 1px solid var(--border);
+            flex-wrap: wrap;
+            gap: 15px;
         }
 
         .nav-title {
@@ -71,9 +81,15 @@
             transition: 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
+            min-height: 44px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
 
         .btn-logout:hover { background: var(--danger); color: white; }
+
+        * { -webkit-tap-highlight-color: rgba(197, 160, 40, 0.2); }
 
         .container {
             max-width: 1400px;
@@ -117,6 +133,10 @@
             font-size: 0.9rem;
             cursor: pointer;
             transition: 0.3s;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+            min-height: 44px;
         }
 
         .filter-bar select:focus {
@@ -263,11 +283,66 @@
 
         @media (max-width: 768px) {
             nav { flex-direction: column; gap: 15px; padding: 15px; }
-            .filter-bar { flex-direction: column; }
-            .filter-bar select { width: 100%; }
-            .grid-stats { grid-template-columns: 1fr; }
+            .nav-title { font-size: 1.15rem; }
+            .filter-bar { flex-direction: column; margin-bottom: 20px; }
+            .filter-bar select { width: 100%; min-height: 44px; padding: 12px 14px; font-size: 16px; }
+            .grid-stats { grid-template-columns: 1fr; gap: 16px; }
+            .stat-card { padding: 24px; }
+            .stat-card p { font-size: 1.8rem; }
             table { font-size: 0.8rem; }
             td, th { padding: 12px; }
+            .container { padding: 30px 16px; }
+            header h1 { font-size: 1.6rem; }
+            .btn-logout { min-height: 44px; padding: 10px 16px; }
+        }
+
+        @media (max-width: 600px) {
+            nav { padding: 12px 8px; gap: 10px; flex-direction: column; }
+            .nav-title { font-size: 0.95rem; letter-spacing: 1px; }
+            .nav-user { font-size: 0.8rem; gap: 8px; }
+            .filter-bar { flex-direction: column; gap: 10px; margin-bottom: 16px; }
+            .filter-bar select { width: 100%; min-height: 44px; padding: 11px 12px; font-size: 16px; border-radius: 6px; }
+            .grid-stats { grid-template-columns: 1fr; gap: 12px; margin-bottom: 30px; }
+            .stat-card { padding: 16px 14px; border-radius: 12px; }
+            .stat-card h3 { font-size: 0.7rem; }
+            .stat-card p { font-size: 1.6rem; margin-top: 10px; }
+            .stat-card .icon { font-size: 40px; }
+            .container { padding: 20px 8px; max-width: 100%; }
+            header { margin-bottom: 25px; }
+            header h1 { font-size: 1.4rem; letter-spacing: 2px; }
+            header p { font-size: 0.75rem; }
+            .report-box { padding: 16px 12px; border-radius: 12px; }
+            .report-box h2 { font-size: 1rem; margin-bottom: 16px; }
+            table { font-size: 0.75rem; }
+            th { padding: 10px 6px; font-size: 0.65rem; }
+            td { padding: 8px 6px; font-size: 0.8rem; }
+            .badge { padding: 4px 10px; font-size: 0.6rem; }
+            .btn-logout { padding: 8px 12px; font-size: 0.75rem; min-height: 40px; }
+            button { min-height: 40px; }
+        }
+
+        @media (max-width: 480px) {
+            nav { padding: 10px 6px; }
+            .nav-title { font-size: 0.85rem; }
+            .filter-bar { gap: 8px; }
+            .filter-bar select { min-height: 40px; padding: 10px 10px; font-size: 15px; }
+            .stat-card { padding: 14px 12px; }
+            .stat-card p { font-size: 1.4rem; }
+            table { font-size: 0.7rem; }
+            th, td { padding: 6px 4px; }
+            .container { padding: 16px 6px; }
+            header h1 { font-size: 1.2rem; }
+        }
+
+        @supports (padding: 1dvh) {
+            body { min-height: 100dvh; }
+        }
+        
+        @supports (padding: 1svh) {
+            @media (max-height: 500px) {
+                .container { padding: 15px 8px; }
+                .report-box { margin-bottom: 10px; }
+            }
         }
 
                 .nav-link {
@@ -281,9 +356,184 @@
             align-items: center;
             gap: 8px;
             transition: 0.3s;
+            min-height: 44px;
+            padding: 8px 12px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
         }
 
         .nav-link:hover { color: #fff; }
+        
+        @media (max-width: 600px) {
+            .nav-link { font-size: 0.75rem; padding: 6px 10px; }
+        }
+
+        .btn-cadastro {
+            padding: 10px 15px;
+            background: var(--gold-gradient);
+            color: #000;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            font-size: 0.85rem;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+            min-height: 44px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        @media (max-width: 600px) {
+            .btn-cadastro { width: 100%; font-size: 0.8rem; padding: 12px 10px; }
+        }
+
+        #cadastroFuncionarioModal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0, 0, 0, 0.8);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+            padding: 20px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .modal-content {
+            background: var(--surface);
+            padding: 40px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            width: 90%;
+            max-width: 400px;
+        }
+
+        .modal-content h3 {
+            margin: 0 0 20px;
+            color: var(--gold);
+            font-size: 1.3rem;
+        }
+
+        .modal-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .modal-form input {
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            color: #fff;
+            font-size: 14px;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 10px;
+        }
+
+        .modal-buttons button {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            text-transform: uppercase;
+            min-height: 44px;
+            font-size: 0.85rem;
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        .modal-buttons button[type="submit"] {
+            background: var(--gold-gradient);
+            color: #000;
+        }
+
+        .modal-buttons button[type="button"] {
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+            border: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            .modal-content {
+                padding: 24px;
+                width: 95%;
+                max-width: 95vw;
+                border-radius: 12px;
+            }
+            .modal-content h3 {
+                font-size: 1.1rem;
+                margin-bottom: 16px;
+            }
+            .modal-form {
+                gap: 12px;
+            }
+            .modal-form input {
+                padding: 11px 12px;
+                font-size: 16px;
+            }
+            .modal-buttons button {
+                padding: 11px;
+                font-size: 0.8rem;
+                min-height: 40px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            #cadastroFuncionarioModal {
+                padding: 16px;
+            }
+            .modal-content {
+                padding: 20px 16px;
+                border-radius: 10px;
+            }
+            .modal-content h3 {
+                font-size: 1rem;
+                margin-bottom: 14px;
+            }
+            .modal-form {
+                gap: 10px;
+            }
+            .modal-form input {
+                padding: 10px 11px;
+                font-size: 16px;
+            }
+        }
+
+        .logout-icon {
+            font-size: 18px;
+        }
+
+        @media (max-width: 600px) {
+            .logout-icon {
+                font-size: 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logout-icon {
+                font-size: 14px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -291,14 +541,14 @@
 <nav>
     <div class="nav-title">ARCO-<span>IRIS</span> RELATÓRIOS</div>
     <div style="display: flex; gap: 25px; align-items: center;">
-        <a href="index.html" style="color: var(--gold); text-decoration: none; font-size: 0.85rem; font-weight: 600; text-transform: uppercase; letter-spacing: 1px; display: flex; align-items: center; gap: 8px; transition: 0.3s;" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--gold)'">
+        <a href="index.html" class="nav-link" onmouseover="this.style.color='#fff'" onmouseout="this.style.color='var(--gold)'">
             <span class="material-icons">arrow_back</span> Voltar para Reservas
         </a>
         <div class="nav-user" style="border-left: 1px solid var(--border); padding-left: 25px;">
             <span class="material-icons">account_circle</span>
             <span id="nomeUsuario"></span>
         </div>
-        <button class="btn-logout" onclick="logout()"><span class="material-icons" style="font-size:18px">logout</span> SAIR</button>
+        <button class="btn-logout" onclick="logout()"><span class="material-icons logout-icon">logout</span> SAIR</button>
     </div>
 </nav>
 
@@ -320,7 +570,7 @@
             <option value="Pendente">Pendente</option>
         </select>
     </div>
-        <button onclick="mostrarCadastroFuncionario()" style="padding: 10px 15px; background: var(--gold-gradient); color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; text-transform: uppercase; font-size: 0.85rem; letter-spacing: 1px; margin-bottom: 30px;">+ Cadastrar Funcionário</button>
+        <button onclick="mostrarCadastroFuncionario()" class="btn-cadastro">+ Cadastrar Funcionário</button>
 
     <div class="grid-stats">
         <div class="stat-card">
@@ -342,16 +592,16 @@
 
     <div class="report-box">
         <h2><span class="material-icons">table_chart</span> Detalhamento de Reservas</h2>
-        <div id="cadastroFuncionarioModal" style="display: none; position: fixed; top: 0; left: 0; right: 0; bottom: 0; background: rgba(0,0,0,0.8); display: flex; align-items: center; justify-content: center; z-index: 1000;">
-            <div style="background: var(--surface); padding: 40px; border-radius: 16px; border: 1px solid var(--border); width: 90%; max-width: 400px;">
-                <h3 style="margin: 0 0 20px; color: var(--gold); font-size: 1.3rem;">Cadastrar Novo Funcionário</h3>
-                <form id="formCadastroFunc" style="display: flex; flex-direction: column; gap: 15px;">
-                    <input type="text" id="nomeFunc" placeholder="Nome Completo" style="padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 14px;" required>
-                    <input type="text" id="userFunc" placeholder="Usuário de Acesso" style="padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 14px;" required>
-                    <input type="password" id="passFunc" placeholder="Senha" style="padding: 12px; background: rgba(0,0,0,0.3); border: 1px solid var(--border); border-radius: 8px; color: #fff; font-size: 14px;" required>
-                    <div style="display: flex; gap: 10px;">
-                        <button type="submit" style="flex: 1; padding: 12px; background: var(--gold-gradient); color: #000; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; text-transform: uppercase;">Cadastrar</button>
-                        <button type="button" onclick="fecharCadastroFuncionario()" style="flex: 1; padding: 12px; background: rgba(255,255,255,0.1); color: #fff; border: 1px solid var(--border); border-radius: 8px; cursor: pointer; font-weight: 600; text-transform: uppercase;">Cancelar</button>
+        <div id="cadastroFuncionarioModal">
+            <div class="modal-content">
+                <h3>Cadastrar Novo Funcionário</h3>
+                <form id="formCadastroFunc" class="modal-form">
+                    <input type="text" id="nomeFunc" placeholder="Nome Completo" required>
+                    <input type="text" id="userFunc" placeholder="Usuário de Acesso" required>
+                    <input type="password" id="passFunc" placeholder="Senha" required>
+                    <div class="modal-buttons">
+                        <button type="submit">Cadastrar</button>
+                        <button type="button" onclick="fecharCadastroFuncionario()">Cancelar</button>
                     </div>
                 </form>
             </div>
