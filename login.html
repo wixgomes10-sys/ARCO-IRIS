@@ -2,13 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5, user-scalable=yes">
-    <meta name="theme-color" content="#0f0f0f">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="ARCO-IRIS">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ARCO-IRIS | Acesso ao Sistema</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -70,15 +64,7 @@
             font-size: 1rem;
         }
 
-        input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 4px rgba(197,160,40,0.06); -webkit-appearance: none; -moz-appearance: none; appearance: none; }
-
-        input { -webkit-appearance: none; -moz-appearance: none; appearance: none; }
-
-        button { -webkit-appearance: none; -moz-appearance: none; appearance: none; -webkit-touch-callout: none; }
-
-        * { -webkit-tap-highlight-color: rgba(197, 160, 40, 0.2); -webkit-user-select: text; user-select: text; }
-
-        body { -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale; }
+        input:focus { outline: none; border-color: var(--gold); box-shadow: 0 0 0 4px rgba(197,160,40,0.06); }
 
         .btn-primary {
             margin-top: 8px;
@@ -97,28 +83,9 @@
 
         .info { margin-top: 14px; font-size: 0.85rem; color: var(--text-dim); text-align: center; }
 
-        @media (max-width: 768px) {
-            .login-wrapper { max-width: 95vw; max-width: 95dvw; }
-            .login-card { padding: 28px 20px; border-radius: 12px; }
-            .logo h1 { font-size: 1.4rem; }
-            .logo .material-icons { font-size: 40px; }
-            input[type="text"], input[type="password"] { padding: 14px 16px; font-size: 16px; }
-            .btn-primary { padding: 14px 16px; font-size: 0.95rem; min-height: 48px; }
-            label { font-size: 0.9rem; }
-            .info { font-size: 0.8rem; line-height: 1.6; }
-        }
-
-        @media (max-width: 480px) {
-            body { padding: 20px 15px; }
-            .login-card { padding: 24px 16px; }
+        @media (max-width: 600px) {
+            .login-wrapper { max-width: 360px; }
             .logo h1 { font-size: 1.2rem; }
-            .logo .material-icons { font-size: 36px; }
-            input[type="text"], input[type="password"] { padding: 13px 14px; font-size: 16px; border-radius: 8px; }
-            .btn-primary { padding: 13px 14px; font-size: 0.9rem; min-height: 44px; }
-        }
-
-        @supports (padding: 1dvh) {
-            body { min-height: 100dvh; }
         }
     </style>
 </head>
@@ -149,50 +116,39 @@
     </div>
 </div>
 
-<script>
-    // Inicializa sistema SÓ na primeira vez
-    function inicializarSistema() {
-        if (!localStorage.getItem("usuarios_arcoiris")) {
-            const usuariosPadrao = [
-                {user: "admin", pass: "admin", nivel: "admin", nome: "Administrador"},
-                {user: "func", pass: "123", nivel: "funcionario", nome: "Funcionário"}
-            ];
-            localStorage.setItem("usuarios_arcoiris", JSON.stringify(usuariosPadrao));
-        }
-    }
-
-    inicializarSistema();
-
-    document.getElementById('loginForm').onsubmit = function(e) {
+    <script>
+    // Login via backend API (substitui armazenamento local)
+    document.getElementById('loginForm').onsubmit = async function(e) {
         e.preventDefault();
-        
         const userVal = document.getElementById('userInput').value.trim();
         const passVal = document.getElementById('passInput').value.trim();
         const btn = this.querySelector('button');
-        
-        if (!userVal || !passVal) {
-            alert("Preencha todos os campos!");
-            return;
-        }
-        
-        const usuarios = JSON.parse(localStorage.getItem("usuarios_arcoiris")) || [];
-        const usuarioEncontrado = usuarios.find(u => u.user === userVal && u.pass === passVal);
+        if (!userVal || !passVal) { alert('Preencha todos os campos!'); return; }
 
-        if (usuarioEncontrado) {
+        try {
             btn.disabled = true;
             btn.textContent = '⏳ Entrando...';
-            sessionStorage.setItem("sessao_usuario", JSON.stringify(usuarioEncontrado));
+            const resp = await fetch('http://localhost:3000/api/auth/login', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({ user: userVal, pass: passVal })
+            });
+            const data = await resp.json();
+            if (!resp.ok) { btn.disabled = false; btn.textContent = 'Entrar'; alert(data.error || 'Usuário ou senha incorretos!'); return; }
+
+            // Salvar token + sessão simples
+            sessionStorage.setItem('token', data.token);
+            sessionStorage.setItem('sessao_usuario', JSON.stringify(data.user));
+
             setTimeout(() => {
-                if (usuarioEncontrado.nivel === "admin") {
-                    window.location.href = "admin-relatorios.html";
-                } else {
-                    window.location.href = "index.html";
-                }
-            }, 500);
-        } else {
-            alert("❌ Usuário ou senha incorretos!");
+                if (data.user.nivel === 'admin') window.location.href = 'admin-relatorios.html';
+                else window.location.href = 'index.html';
+            }, 300);
+        } catch (err) {
+            btn.disabled = false; btn.textContent = 'Entrar';
+            alert('Erro de conexão com o servidor');
         }
     };
-</script>
+    </script>
 </body>
 </html>

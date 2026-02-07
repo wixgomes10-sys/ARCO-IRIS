@@ -2,13 +2,7 @@
 <html lang="pt-BR">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=5, user-scalable=yes">
-    <meta name="theme-color" content="#0f0f0f">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <meta name="apple-mobile-web-app-title" content="ARCO-IRIS">
-    <meta name="format-detection" content="telephone=no">
-    <meta name="x-ua-compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Arco-Íris | Gestão Profissional de Reservas</title>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
@@ -38,8 +32,6 @@
             background-image: radial-gradient(circle at 50% 0%, #2a0a0a 0%, #0f0f0f 70%);
             color: var(--text-main);
             min-height: 100vh;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
         }
 
         /* Navigation Bar Superior */
@@ -146,9 +138,6 @@
             color: #fff;
             font-size: 0.9rem;
             transition: 0.3s;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
         }
 
         input:focus, select:focus {
@@ -156,8 +145,6 @@
             border-color: var(--gold);
             background: rgba(0,0,0,0.4);
         }
-
-        * { -webkit-tap-highlight-color: rgba(197, 160, 40, 0.2); }
 
         .btn-submit {
             margin-top: 30px;
@@ -173,10 +160,6 @@
             transition: 0.3s;
             text-transform: uppercase;
             letter-spacing: 1px;
-            min-height: 48px;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
         }
 
         .btn-submit:hover { opacity: 0.9; transform: scale(1.02); }
@@ -224,14 +207,6 @@
             border-radius: 8px;
             cursor: pointer;
             transition: 0.3s;
-            min-height: 44px;
-            min-width: 44px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
         }
 
         .btn-delete:hover { background: var(--danger); color: #fff; }
@@ -244,11 +219,6 @@
             border-radius: 8px;
             cursor: pointer;
             font-size: 0.8rem;
-            min-height: 44px;
-            min-width: 44px;
-            -webkit-appearance: none;
-            -moz-appearance: none;
-            appearance: none;
         }
 
         @media (max-width: 900px) {
@@ -259,69 +229,15 @@
             nav.top-bar { padding: 10px 15px; }
         }
 
-        @media (max-width: 768px) {
-            .container { grid-template-columns: 1fr; padding: 0 12px; max-width: 100%; margin: 0 auto 30px; }
-            .box { padding: 25px; border-radius: 16px; }
-            header { padding: 25px 12px; }
-            header h1 { font-size: 1.6rem; letter-spacing: 2px; }
-            .logo-container { padding: 12px 20px; }
-            h2 { font-size: 1.1rem; margin-bottom: 20px; }
-            input, select { padding: 13px 14px; font-size: 16px; }
-            label { font-size: 0.8rem; margin-bottom: 8px; }
-            table { font-size: 0.8rem; }
-            th, td { padding: 14px 10px; }
-            .badge { padding: 5px 12px; font-size: 0.65rem; }
-            div[style*="flex: 1"] { min-height: 70px; }
-            nav.top-bar { flex-direction: column; gap: 12px; text-align: center; padding: 12px; }
-        }
-
         @media (max-width: 600px) {
             .dashboard { grid-template-columns: 1fr; }
-            .container { padding: 0 10px; }
-            .box { padding: 20px 16px; border-radius: 12px; margin-bottom: 15px; }
-            header { padding: 20px 10px; }
-            header h1 { font-size: 1.4rem; letter-spacing: 1px; }
-            .logo-container { gap: 8px; padding: 10px 16px; }
-            .logo-container span { font-size: 2rem !important; }
-            header p { font-size: 0.8rem; }
-            h2 { font-size: 1rem; margin-bottom: 16px; }
-            input, select { padding: 12px 12px; font-size: 16px; border-radius: 8px; }
-            label { font-size: 0.75rem; margin-bottom: 6px; }
-            table { font-size: 0.75rem; }
-            th, td { padding: 10px 8px; }
-            .btn-submit { padding: 12px; font-size: 0.95rem; min-height: 44px; }
-            .btn-delete { min-height: 40px; min-width: 40px; }
-            .logout-btn { padding: 10px 12px; font-size: 0.75rem; min-height: 40px; }
-            td { word-break: break-word; }
-            .badge { padding: 4px 10px; font-size: 0.6rem; }
-        }
-
-        @media (max-width: 480px) {
-            body { padding: 0; }
-            .container { padding: 0 8px; }
-            nav.top-bar { padding: 10px 8px; gap: 8px; }
-            header { padding: 16px 8px; }
-            header h1 { font-size: 1.2rem; }
-            .logo-container { padding: 8px 12px; gap: 6px; }
-            .box { padding: 16px 12px; }
-            h2 { font-size: 0.95rem; }
-            input, select { padding: 11px 11px; font-size: 16px; border-radius: 6px; margin-bottom: 2px; }
-            label { font-size: 0.7rem; margin-bottom: 4px; }
-            table { font-size: 0.7rem; }
-            th, td { padding: 8px 6px; }
-            .btn-submit { padding: 11px; font-size: 0.9rem; min-height: 40px; }
-            div[style*="display: flex; gap"] { gap: 8px !important; flex-wrap: wrap; }
-        }
-
-        @supports (padding: 1dvh) {
-            body { min-height: 100dvh; }
-        }
-
-        @supports (padding: 1svh) {
-            @media (max-height: 500px) {
-                .container { padding-top: 10px; }
-                .box { margin-bottom: 10px; padding: 15px; }
-            }
+            .box { padding: 20px; border-radius: 12px; }
+            h2 { font-size: 1rem; }
+            table { font-size: 0.8rem; }
+            th, td { padding: 12px; }
+            input, select { padding: 12px; font-size: 16px; }
+            .btn-submit { padding: 14px; }
+            nav.top-bar { flex-direction: column; gap: 10px; text-align: center; }
         }
     </style>
 </head>
@@ -412,53 +328,47 @@
 
 </div>
 
-<script>
-    // A lógica de proteção e funcionalidade permanece a mesma para não quebrar o sistema
-    const sessao = JSON.parse(sessionStorage.getItem("sessao_usuario"));
-    if (!sessao) window.location.href = "login.html";
+    <script>
+    // Integração com backend: usa token + API em http://localhost:3000
+    const token = sessionStorage.getItem('token');
+    if (!token) window.location.href = 'login.html';
 
-    // Exibir nome do funcionário na navegação
-    const elNomeFuncionario = document.getElementById("nomeFuncionario");
-    if (elNomeFuncionario) {
-        elNomeFuncionario.textContent = sessao.nome || "Usuário";
-    }
+    const sessao = JSON.parse(sessionStorage.getItem('sessao_usuario') || 'null');
+    const elNomeFuncionario = document.getElementById('nomeFuncionario');
+    if (elNomeFuncionario) elNomeFuncionario.textContent = sessao ? (sessao.nome || 'Usuário') : '-';
 
     function logout() {
-        sessionStorage.removeItem("sessao_usuario");
-        window.location.href = "login.html";
+        sessionStorage.removeItem('sessao_usuario');
+        sessionStorage.removeItem('token');
+        window.location.href = 'login.html';
     }
 
-    let reservas = JSON.parse(localStorage.getItem("reservas")) || [];
-    const form = document.getElementById("formReserva");
-    const lista = document.getElementById("listaReservas");
+    let reservas = [];
+    const form = document.getElementById('formReserva');
+    const lista = document.getElementById('listaReservas');
 
     const formatCurrency = (v) => new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(v);
     const formatDate = (ds) => { const [y, m, d] = ds.split('-'); return `${d}/${m}`; };
 
-    function salvar() {
-        localStorage.setItem("reservas", JSON.stringify(reservas));
-        renderizar();
-    }
-
-    function conflito(data, inicio, fim, esporte) {
-        return reservas.some(r => 
-            r.esporte === esporte && 
-            r.data === data && 
-            ((inicio >= r.inicio && inicio < r.fim) || (fim > r.inicio && fim <= r.fim) || (inicio <= r.inicio && fim >= r.fim))
-        );
+    async function fetchReservas() {
+        try {
+            const resp = await fetch('http://localhost:3000/api/reservas', { headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') } });
+            if (!resp.ok) throw new Error('Erro ao buscar reservas');
+            reservas = await resp.json();
+            renderizar();
+        } catch (err) {
+            console.error(err); alert('Erro ao carregar reservas');
+        }
     }
 
     function renderizar() {
-        lista.innerHTML = "";
+        lista.innerHTML = '';
         let tPago = 0, tPend = 0;
         reservas.sort((a, b) => (a.data + a.inicio).localeCompare(b.data + b.inicio));
 
-        reservas.forEach((r, i) => {
-                // Garantir que status existe
-                if (!r.status) r.status = "Pendente";
-            
-            if(r.status === 'Pago') tPago += r.valor;
-            else tPend += r.valor;
+        reservas.forEach((r) => {
+            if (!r.status) r.status = 'Pendente';
+            if (r.status === 'Pago') tPago += r.valor; else tPend += r.valor;
 
             const row = document.createElement('tr');
             row.innerHTML = `
@@ -468,8 +378,8 @@
                 </td>
                 <td><span style="color:#fff">${r.inicio}</span> <span style="color:var(--text-dim)">às</span> <span style="color:#fff">${r.fim}</span></td>
                 <td style="font-weight:600">${formatCurrency(r.valor)}</td>
-                    <td><span class="badge ${(r.status || 'pendente').toLowerCase()}" onclick="alternarStatus(${i})">${r.status}</span></td>
-                <td><button class="btn-delete" onclick="remover(${i})"><span class="material-icons" style="font-size:18px">delete_outline</span></button></td>
+                <td><span class="badge ${(r.status || 'pendente').toLowerCase()}" onclick="alternarStatus(${r.id})">${r.status}</span></td>
+                <td><button class="btn-delete" onclick="remover(${r.id})"><span class="material-icons" style="font-size:18px">delete_outline</span></button></td>
             `;
             lista.appendChild(row);
         });
@@ -477,39 +387,56 @@
         if (reservas.length === 0) lista.innerHTML = `<tr><td colspan="5" style="text-align:center; padding: 40px; color: var(--text-dim);">Nenhum registro encontrado.</td></tr>`;
     }
 
-    window.remover = i => { if(confirm("Deseja apagar este registro?")) { reservas.splice(i, 1); salvar(); } }
-    window.alternarStatus = i => { reservas[i].status = reservas[i].status === "Pago" ? "Pendente" : "Pago"; salvar(); }
+    window.remover = async id => {
+        if (!confirm('Deseja apagar este registro?')) return;
+        try {
+            const resp = await fetch(`http://localhost:3000/api/reservas/${id}`, { method: 'DELETE', headers: { 'Authorization': 'Bearer ' + sessionStorage.getItem('token') } });
+            if (!resp.ok) throw new Error('Erro ao apagar');
+            fetchReservas();
+        } catch (err) { console.error(err); alert('Erro ao apagar'); }
+    }
 
-    form.addEventListener("submit", e => {
+    window.alternarStatus = async id => {
+        try {
+            const r = reservas.find(x => x.id == id);
+            const novo = r.status === 'Pago' ? 'Pendente' : 'Pago';
+            const resp = await fetch(`http://localhost:3000/api/reservas/${id}`, { method: 'PUT', headers: { 'Content-Type':'application/json', 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }, body: JSON.stringify({ status: novo }) });
+            if (!resp.ok) throw new Error('Erro ao atualizar');
+            fetchReservas();
+        } catch (err) { console.error(err); alert('Erro ao atualizar status'); }
+    }
+
+    form.addEventListener('submit', async e => {
         e.preventDefault();
         const d = {
-            nome: document.getElementById("nome").value.trim(),
-            esporte: document.getElementById("esporte").value,
-            data: document.getElementById("data").value,
-            inicio: document.getElementById("inicio").value,
-            fim: document.getElementById("fim").value,
-            valor: parseFloat(document.getElementById("valor").value),
-            status: document.getElementById("status").value
+            nome: document.getElementById('nome').value.trim(),
+            esporte: document.getElementById('esporte').value,
+            data: document.getElementById('data').value,
+            inicio: document.getElementById('inicio').value,
+            fim: document.getElementById('fim').value,
+            valor: parseFloat(document.getElementById('valor').value),
+            status: document.getElementById('status').value
         };
 
         // Validações
-        if (!d.nome || d.nome.length < 3) return alert("Nome deve ter pelo menos 3 caracteres!");
-        if (!d.esporte) return alert("Selecione uma modalidade!");
-        if (!d.data) return alert("Selecione uma data!");
-        if (!d.inicio || !d.fim) return alert("Defina os horários!");
-        if (d.valor <= 0) return alert("O valor deve ser maior que zero!");
-        if (d.inicio >= d.fim) return alert("Horário inválido. Fim deve ser após início.");
-        if (conflito(d.data, d.inicio, d.fim, d.esporte)) return alert("Conflito de horário detectado para " + d.esporte);
+        if (!d.nome || d.nome.length < 3) return alert('Nome deve ter pelo menos 3 caracteres!');
+        if (!d.esporte) return alert('Selecione uma modalidade!');
+        if (!d.data) return alert('Selecione uma data!');
+        if (!d.inicio || !d.fim) return alert('Defina os horários!');
+        if (d.valor <= 0) return alert('O valor deve ser maior que zero!');
+        if (d.inicio >= d.fim) return alert('Horário inválido. Fim deve ser após início.');
 
-        reservas.push(d);
-        salvar();
-        form.reset();
-        document.getElementById('data').valueAsDate = new Date();
-        alert("✅ Reserva salva com sucesso!");
+        try {
+            const resp = await fetch('http://localhost:3000/api/reservas', { method: 'POST', headers: { 'Content-Type':'application/json', 'Authorization': 'Bearer ' + sessionStorage.getItem('token') }, body: JSON.stringify(d) });
+            if (!resp.ok) { const err = await resp.json(); throw new Error(err.error || 'Erro'); }
+            form.reset(); document.getElementById('data').valueAsDate = new Date();
+            alert('✅ Reserva salva com sucesso!');
+            fetchReservas();
+        } catch (err) { console.error(err); alert(err.message || 'Erro'); }
     });
 
     document.getElementById('data').valueAsDate = new Date();
-    renderizar();
-</script>
+    fetchReservas();
+    </script>
 </body>
 </html>
